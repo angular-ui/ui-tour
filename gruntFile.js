@@ -16,7 +16,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     testacular: {
       unit: {
-        options: testacularConfig('test/test.conf.js')
+        options: testacularConfig('test/karma.conf.js')
       }
     },
     jshint:{
