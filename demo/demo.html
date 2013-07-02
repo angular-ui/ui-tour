@@ -22,7 +22,27 @@
       background: blue;
       color: white;
       padding: 20px;
+      margin-top: 10px;
+      
     }
+      [ui-tour] li.active div {
+          position: relative;
+          margin: -20px;
+      padding: 20px;
+      }
+  [ui-tour] li.active div:after {
+          content: '';
+          display: block;
+          position: absolute;
+          left: 50%;
+          top: -10px;
+          margin-left: -5px;
+          width: 0;
+          height: 0;
+          border-bottom: 10px solid black;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+      }
   </style>
 </head>
 <body ng-app="ui.tour" ng-init="currentStep=1">
@@ -32,11 +52,16 @@
   <h1>Chapter Four</h1>
   <button ng-click="currentStep=3">Go to 3</button>
   <button ng-click="currentStep='third'">Go to third</button>
-  <ul joyride="currentStep">
-    <li target="h1:eq(0)">First <button ng-click="currentStep=currentStep+1">Next</button></li>
-    <li target="h1:eq(1)">Second <button ng-click="currentStep=currentStep+1">Next</button></li>
-    <li target="h1:eq(2)" key="third">Third <button ng-click="currentStep=currentStep+1">Next</button></li>
-    <li target="h1:eq(3)">Fourth <button ng-click="currentStep=currentStep+1">Next</button></li>
+  <button ng-click="currentStep=0">Go to 0</button>
+    <button ng-click="currentStep=false">Go to false</button>
+    <button ng-click="currentStep=true">Go to true</button>
+    <button ng-click="currentStep={}">Go to {}</button>
+  <ul ui-tour="currentStep">
+    <li target="h1:eq(0)" at="right"><div>First <button ng-click="currentStep=currentStep+1">Next</button></div></li>
+    <li target="h1:eq(1)" at="top">Second <button ng-click="currentStep=currentStep+1">Next</button></li>
+    <li target="h1:eq(2)" at="left" key="third"><div><button ng-click="currentStep=currentStep-1">Prev</button> Third <button ng-click="currentStep=currentStep+1">Next</button></div></li>
+    <li target="h1:eq(3)" at="bottom"><div>Fourth <button ng-click="currentStep=currentStep+1">Next</button></div></li>
   </ul>
+  <pre>{{currentStep|json}}</pre>
 </body>
 </html>

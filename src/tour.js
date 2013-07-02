@@ -24,60 +24,46 @@ angular.module('ui.tour', [])
 .directive('uiTour', ['$timeout', '$parse', function($timeout, $parse){
   return {
     link: function($scope, $element, $attributes) {
-      var steps = [],
-          model = $parse($attributes.joyride);
-
-      // Cache steps
-      $scope.$watch($attributes.uiRefresh, function(){
-        $element.children().each(function(i, item){
-          var $element = angular.element(item);
-          var step = {
-            element: $element,
-            index: i,
-            key: $element.attr('key'),
-            target:$element.attr('target')
-          };
-          steps.push(step);
-        });
-      });
+      var model = $parse($attributes.uiTour);
 
       // Watch model and change steps
-      $scope.$watch($attributes.joyride, function(newVal, oldVal){
+      $scope.$watch($attributes.uiTour, function(newVal, oldVal){
         if (angular.isNumber(newVal)) {
           showStep(newVal)
         } else {
-          if (newVal === true)
-            model.assign($scope, 1);
           if (angular.isString(newVal)) {
-            var stepNumber = 0;
-            angular.each(steps, function(step, index) {
-              if (step.key === newVal)
+            var stepNumber = 0,
+              children = $element.children()
+            angular.forEach(children, function(step, index) {
+              if (angular.element(step).attr('key') === newVal)
                 stepNumber = index+1;
             });
             model.assign($scope, stepNumber);
+          } else {
+            model.assign($scope, newVal && 1 || 0);
           }
-        }
-        if (newVal === true) {
-          showStep(steps[0]);
-        } else if (angular.isNumber(newVal)) {
-          showStep(steps[newVal-1]);
-        } else if (angular.isString(newVal)) {
-            debugger;
-          step = _.find(steps, function(step){
-            return step.key === newVal;
-          })
-          if (step)
-            showStep(steps.indexOf(step));
         }
       });
 
       // Show step
       function showStep(stepNumber) {
-        $element.children().removeClass('active');
-        if (steps[stepNumber-1]) {
+        var elm, at, children = $element.children().removeClass('active');
+        elm = children.eq(stepNumber - 1)
+        if (stepNumber && elm.length) {
+          at = elm.attr('at');
           $timeout(function(){
-            offset = angular.element(steps[stepNumber-1].target).offset();
-            steps[stepNumber-1].element.addClass('active').css(offset);
+            var target = angular.element(elm.attr('target'))[0];
+            offset = {};
+            
+            offset.top = target.offsetTop;
+            offset.left = target.offsetLeft;
+              
+            if (at.indexOf('bottom') > -1)
+                offset.top += target.offsetHeight;
+            if (at.indexOf('right') > -1)
+                offset.left += target.offsetWidth;
+            
+            elm.css(offset).addClass('active');
           });
         }
       }
