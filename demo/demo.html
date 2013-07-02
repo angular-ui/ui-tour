@@ -43,10 +43,25 @@
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
       }
+      [ui-tour] li.active[at=top] div:after {
+          border-top: 10px solid black;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+          }
+      [ui-tour] li.active[at=right] div:after {
+        left: -10px;
+        top: 50%;
+        margin-left: 0;
+        margin-top: -5px;
+          border-right: 10px solid black;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+          }
+      #one { width: 50%; }
   </style>
 </head>
 <body ng-app="ui.tour" ng-init="currentStep=1">
-  <h1>Chapter One</h1>
+  <h1 id="one">Chapter One</h1>
   <h1>Chapter Two</h1>
   <h1>Chapter Three</h1>
   <h1>Chapter Four</h1>
@@ -58,7 +73,7 @@
     <button ng-click="currentStep={}">Go to {}</button>
   <ul ui-tour="currentStep">
     <li target="h1:eq(0)" at="right"><div>First <button ng-click="currentStep=currentStep+1">Next</button></div></li>
-    <li target="h1:eq(1)" at="top">Second <button ng-click="currentStep=currentStep+1">Next</button></li>
+    <li target="h1:eq(1)" at="top"><button ng-click="currentStep=currentStep-1">Prev</button> Second <button ng-click="currentStep=currentStep+1">Next</button></li>
     <li target="h1:eq(2)" at="left" key="third"><div><button ng-click="currentStep=currentStep-1">Prev</button> Third <button ng-click="currentStep=currentStep+1">Next</button></div></li>
     <li target="h1:eq(3)" at="bottom"><div>Fourth <button ng-click="currentStep=currentStep+1">Next</button></div></li>
   </ul>
