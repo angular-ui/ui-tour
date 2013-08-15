@@ -66,10 +66,10 @@
     }
     .tour-overlay {
       display: none;
-      height: 300px;
-      width: 300px;
-      top: -4000px;
-      left: -4000px;
+      height: 500px;
+      width: 500px;
+      top: -4100px;
+      left: -4100px;
       background: transparent;
       border-radius: 8000px;
       border: 4000px solid rgba(0,0,0,.5);
@@ -80,6 +80,12 @@
       -o-transition: all 1s ease;
       transition: all 1s ease;
     }
+	.tour-overlay.in {
+		height: 300px;
+		width: 300px;
+		top: -4000px;
+		left: -4000px;
+	}
   </style>
 </head>
 <body ng-app="ui.tour" ng-init="currentStep=1">
@@ -93,7 +99,6 @@
   <button class="btn" ng-click="currentStep=false">Go to false</button>
   <button class="btn" ng-click="currentStep=true">Go to true</button>
   <button class="btn" ng-click="currentStep={}">Go to {}</button>
-  <div class="tour-overlay fade"></div>
   <ul ui-tour="currentStep">
     <li target="h1:eq(0)" at="right" class="popover right in" overlay>
       <div class="arrow"></div>
@@ -117,5 +122,6 @@
     </li>
   </ul>
   <pre>{{currentStep|json}}</pre>
+  <div class="tour-overlay fade"></div>
 </body>
 </html>
