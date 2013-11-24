@@ -8,7 +8,7 @@
  *       First Tooltip
  *       <a ng-click="currentStep=currentStep+1">Next</a>
  *     </li>
- *     <li target=".items:eq(2)" key="two">
+ *     <li target=".items:eq(2)" name="two">
  *       Second Tooltip
  *       <a ng-click="currentStep=currentStep-1">Prev</a>
  *     </li>
@@ -35,7 +35,7 @@ angular.module('ui.tour', [])
             var stepNumber = 0,
               children = $element.children()
             angular.forEach(children, function(step, index) {
-              if (angular.element(step).attr('key') === newVal)
+              if (angular.element(step).attr('name') === newVal)
                 stepNumber = index+1;
             });
             model.assign($scope, stepNumber);
