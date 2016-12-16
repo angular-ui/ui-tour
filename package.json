@@ -1,11 +1,11 @@
 {
   "name": "angular-ui-tour",
   "version": "0.0.1",
-  "description": "This directive allows you to add a date-picker to your form elements.",
+  "description": "This directive allows you to add a tour to your angular app.",
   "author": "https://github.com/angular-ui/ui-tour/graphs/contributors",
   "license": "MIT",
   "homepage": "http://angular-ui.github.com/ui-tour",
-  "main": "src/date.js",
+  "main": "index.js",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
